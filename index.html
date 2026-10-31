@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multani Zaiqay</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{--bg:#0b0f19;--card:#151c2c;--border:#232d42;--gold:#f39c12;--grad:linear-gradient(135deg,#f1c40f 0%,#e67e22 100%);--text:#f8fafc;--muted:#94a3b8;--wa:#25d366;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif;}
+body{background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;justify-content:space-between;}
+.marquee{background:var(--grad);color:#000;font-weight:700;padding:10px 0;overflow:hidden;white-space:nowrap;font-size:14px}
+.marquee-content{display:inline-block;padding-left:100%;animation:m 18s linear infinite;}
+@keyframes m{0%{transform:translate(0,0);}100%{transform:translate(-100%,0);}}
+header{background:rgba(21,28,44,0.95);border-bottom:1px solid var(--border);padding:15px 20px;position:sticky;top:0;z-index:100;}
+.nav{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;}
+.logo-box{background:var(--grad);color:#000;font-weight:900;font-size:20px;padding:8px 12px;border-radius:10px;}
+.brand{display:flex;align-items:center;gap:12px;}
+.brand-name{font-size:20px;font-weight:800;color:#fff;}
+.brand-sub{font-size:11px;color:var(--gold);font-weight:600;}
+.cart-btn{background:var(--grad);color:#000;border:none;padding:10px 18px;border-radius:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;position:relative;}
+.badge{position:absolute;top:-6px;right:-6px;background:#e74c3c;color:#fff;font-size:11px;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg);}
+main{max-width:1200px;margin:0 auto;padding:30px 15px;width:100%;}
+.title{text-align:center;margin-bottom:30px;}
+.title h2{font-size:28px;font-weight:800;margin-bottom:8px;color:#fff;}
+.title p{color:var(--muted);font-size:14px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:25px;margin-bottom:35px;}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 8px 20px rgba(0,0,0,0.4);}
+.img-box{width:100%;aspect-ratio:1/1;position:relative;overflow:hidden;background:var(--card);}
+.img-box img{width:100%;height:100%;object-fit:cover;}
+.code-badge{position:absolute;top:12px;left:12px;background:rgba(0,0,0,0.85);color:var(--gold);border:1px solid var(--gold);font-size:11px;font-weight:800;padding:4px 8px;border-radius:6px;z-index:2;}
+.stock-badge{position:absolute;top:12px;right:12px;font-size:10px;font-weight:800;padding:4px 8px;border-radius:6px;text-transform:uppercase;z-index:2;}
+.stock-in{background:rgba(46,204,113,0.9);color:#000;}
+.stock-out{background:rgba(231,76,60,0.9);color:#fff;}
+.details{padding:18px;display:flex;flex-direction:column;flex-grow:1;justify-content:space-between;}
+.p-name{font-size:18px;font-weight:700;margin-bottom:4px;color:#fff;}
+.p-stock{font-size:11px;color:var(--muted);margin-bottom:10px;}
+.price{font-size:18px;font-weight:800;color:var(--gold);margin-bottom:15px;}
+.price span{font-size:12px;color:var(--muted);font-weight:400;}
+.add-btn{width:100%;background:transparent;color:var(--gold);border:1.5px solid var(--gold);padding:10px;border-radius:10px;font-weight:700;cursor:pointer;}
+.add-btn:hover:not(:disabled){background:var(--grad);color:#000;border-color:transparent;}
+.add-btn:disabled{border-color:var(--border);color:var(--muted);background:rgba(255,255,255,0.05);cursor:not-allowed;}
+.pagination{display:flex;justify-content:center;align-items:center;gap:15px;margin-bottom:20px;}
+.page-btn{background:var(--card);color:#fff;border:1px solid var(--border);padding:8px 18px;border-radius:8px;font-weight:700;cursor:pointer;}
+.page-btn:disabled{opacity:0.4;cursor:not-allowed;}
+.page-info{font-size:14px;color:var(--muted);font-weight:600;}
+.float-wa{position:fixed;bottom:25px;left:25px;background:var(--wa);color:#fff;width:55px;height:55px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 5px 20px rgba(37,211,102,0.4);z-index:99;text-decoration:none;}
+.overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.85);display:flex;justify-content:center;align-items:center;z-index:200;opacity:0;pointer-events:none;transition:opacity 0.3s;padding:15px;}
+.overlay.active{opacity:1;pointer-events:auto;}
+.modal{background:var(--card);border:1px solid var(--border);width:100%;max-width:450px;border-radius:16px;overflow:hidden;}
+.m-header{background:#0e1422;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);}
+.m-header h3{font-size:16px;color:#fff;}
+.close-btn{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;}
+.cart-list{padding:15px 20px;max-height:300px;overflow-y:auto;}
+.cart-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.05);}
+.item-info h4{font-size:14px;color:#fff;}
+.item-info p{font-size:12px;color:var(--gold);}
+.qty-box{display:flex;align-items:center;background:#0b0f19;border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+.q-btn{background:none;border:none;color:#fff;padding:4px 10px;cursor:pointer;font-weight:700;}
+.q-val{font-size:12px;padding:0 6px;font-weight:700;}
+.m-footer{background:#0e1422;padding:15px 20px;border-top:1px solid var(--border);}
+.total-row{display:flex;justify-content:space-between;font-weight:800;font-size:16px;margin-bottom:15px;}
+.checkout-btn{width:100%;background:var(--wa);color:#fff;border:none;padding:12px;border-radius:10px;font-weight:800;cursor:pointer;display:flex;justify-content:center;align-items:center;gap:8px;}
+.notice{text-align:center;padding:25px;}
+.notice i{font-size:40px;color:var(--gold);margin-bottom:12px;}
+.notice h3{margin-bottom:8px;color:#fff;}
+.notice p{font-size:13px;color:var(--muted);margin-bottom:20px;}
+.proceed-btn{background:var(--grad);color:#000;border:none;width:100%;padding:12px;border-radius:10px;font-weight:800;cursor:pointer;}
+footer{background:#070a12;border-top:1px solid var(--border);padding:25px 15px;text-align:center;font-size:13px;color:var(--muted);margin-top:40px;}
+.f-info{color:var(--gold);font-weight:700;margin:10px 0;line-height:1.6;}
+</style>
+</head>
+<body>
+<div class="marquee"><div class="marquee-content">✨ All kinds of meals are prepared on order here! Order now and enjoy the authentic taste of Multan! ✨</div></div>
+<header>
+  <div class="nav">
+      <div class="brand">
+            <div class="logo-box">MZ</div>
+                  <div>
+                          <div class="brand-name">Multani Zaiqay</div>
+                                  <div class="brand-sub">Homemade Frozen Foods</div>
+                                        </div>
+                                            </div>
+                                                <button class="cart-btn" onclick="openCart()">
+                                                      <i class="fa-solid fa-basket-shopping"></i>
+                                                            <span>Basket</span>
+                                                                  <div class="badge" id="cartBadge">0</div>
+                                                                      </button>
+                                                                        </div>
+                                                                        </header>
+                                                                        <main>
+                                                                        <div class="title"><h2>Our Frozen Menu</h2><p>Freshly prepared homemade items delivered directly to your doorstep in Multan.</p></div>
+                                                                        <div class="grid" id="productContainer"></div>
+                                                                        <div class="pagination" id="pagination"></div>
+                                                                        </main>
+                                                                        <a href="https://wa.me/923216331573?text=Hi!%20I%20need%20help%20with%20Multani%20Zaiqay%20products." class="float-wa" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+                                                                        <div class="overlay" id="cartModal"><div class="modal"><div class="m-header"><h3><i class="fa-solid fa-basket-shopping" style="color:var(--gold);"></i> Your Basket</h3><button class="close-btn" onclick="closeCart()">&times;</button></div><div class="cart-list" id="cartList"></div><div class="m-footer"><div class="total-row"><span>Total:</span><span id="totalBill" style="color:var(--gold);">Rs. 0</span></div><button class="checkout-btn" onclick="triggerCheckout()"><i class="fa-brands fa-whatsapp"></i> Order on WhatsApp</button></div></div></div>
+                                                                        <div class="overlay" id="deliveryNotice"><div class="modal"><div class="notice"><i class="fa-solid fa-truck-fast"></i><h3>Delivery Notice</h3><p>Delivery charges apply according to your area in Multan.</p><button class="proceed-btn" onclick="redirectToWhatsApp()">Proceed to WhatsApp</button></div></div></div>
+                                                                        <footer>
+                                                                          <p style="color:#fff;font-weight:1000;">Exclusively for residents of Multan. Custom orders accepted.</p>
+                                                                          <p style="color:var(--gold);font-weight:1000;margin-top:5px;font-size:12px;">For any queries, we are just a WhatsApp message away.</p>
+                                                                          <div class="f-info">📍 Address: Multan, Pakistan<br>📞 Contact: 03216331573</div>
+                                                                          <p style="font-size:11px;">&copy; 2026 Multani Zaiqay.</p>
+                                                                          </footer>
+                                                                          <script>
+                                                                          const initialMenu = [
+                                                                          {name:"Chicken Nuggets",price:350,unit:"250gm",image:"https://i.ibb.co/nqMxbG8r/IMG-20261030-110112.jpg",inStock:true,stockQty:"Available"},
+                                                                          {name:"Chicken Seekh Kabab",price:500,unit:"Dozen",image:"https://i.ibb.co/8LTQ8PZB/IMG-20261030-113122.jpg",inStock:true,stockQty:"Available"},
+                                                                          {name:"Chicken Shami",price:350,unit:"Dozen",image:"https://i.ibb.co/qLyTScTK/IMG-20261030-110550.jpg",inStock:true,stockQty:"Available"},
+                                                                          {name:"Chicken Wings",price:600,unit:"Half Kg",image:"https://i.ibb.co/GfRXMcvS/IMG-20261030-111355.jpg",inStock:true,stockQty:"Available"},
+                                                                          {name:"Chicken Kofta",price:450,unit:"Dozen",image:"https://i.ibb.co/YBJ0jB41/IMG-20261030-112601.jpg",inStock:true,stockQty:"Available"},
+                                                                          {name:"Chicken Kachori",price:700,unit:"Dozen",image:"https://i.ibb.co/BV28Cz0y/IMG-20261030-105611.jpg",inStock:false,stockQty:"0"}
+                                                                          ];
+                                                                          const productsList = initialMenu.map((item,idx)=>({code:`MZ${(idx+1).toString().padStart(3,'0')}`,...item}));
+                                                                          let page=1,perPage=6,cartState=[];
+                                                                          function renderGrid(){
+                                                                          const c=document.getElementById('productContainer');c.innerHTML='';
+                                                                          const items=productsList.slice((page-1)*perPage,page*perPage);
+                                                                          items.forEach(p=>{
+                                                                          const d=document.createElement('div');d.className='card';
+                                                                          d.innerHTML=`<div class="img-box"><img src="${p.image}" alt="${p.name}"><div class="code-badge">${p.code}</div><div class="stock-badge ${p.inStock?'stock-in':'stock-out'}">${p.inStock?'In Stock':'Out of Stock'}</div></div><div class="details"><div><div class="p-name">${p.name}</div><div class="p-stock"><i class="fa-solid fa-box"></i> Stock: ${p.stockQty}</div><div class="price">Rs. ${p.price} <span>/ ${p.unit}</span></div></div><button class="add-btn" ${!p.inStock?'disabled':''} onclick="addToBasket('${p.code}')">${p.inStock?'Add to Basket':'Out of Stock'}</button></div>`;
+                                                                          c.appendChild(d);
+                                                                          });
+                                                                          renderPagination();
+                                                                          }
+                                                                          function renderPagination(){
+                                                                          const pd=document.getElementById('pagination'),tot=Math.ceil(productsList.length/perPage);
+                                                                          pd.innerHTML=tot<=1?'':`<button class="page-btn" ${page===1?'disabled':''} onclick="changePage(-1)">Previous</button><span class="page-info">Page ${page} of ${tot}</span><button class="page-btn" ${page===tot?'disabled':''} onclick="changePage(1)">Next</button>`;
+                                                                          }
+                                                                          function changePage(d){page+=d;renderGrid();}
+                                                                          function addToBasket(c){const p=productsList.find(x=>x.code===c);if(!p.inStock)return;const i=cartState.find(x=>x.code===c);i?i.qty+=1:cartState.push({...p,qty:1});updateUI();}
+                                                                          function updateQty(c,v){const i=cartState.find(x=>x.code===c);if(i){i.qty+=v;if(i.qty<1)i.qty=1;}updateUI();}
+                                                                          function updateUI(){
+                                                                          const b=document.getElementById('cartBadge'),l=document.getElementById('cartList'),t=document.getElementById('totalBill');
+                                                                          let count=0,sum=0;l.innerHTML='';
+                                                                          if(cartState.length===0){l.innerHTML='<p style="text-align:center;color:var(--muted);padding:20px;">Your basket is empty.</p>';}
+                                                                          else{cartState.forEach(i=>{count+=i.qty;sum+=i.price*i.qty;l.innerHTML+=`<div class="cart-item"><div class="item-info"><h4>${i.name} (${i.code})</h4><p>Rs. ${i.price} x ${i.qty} = Rs. ${i.price*i.qty}</p></div><div class="qty-box"><button class="q-btn" onclick="updateQty('${i.code}',-1)">-</button><span class="q-val">${i.qty}</span><button class="q-btn" onclick="updateQty('${i.code}',1)">+</button></div></div>`;});}
+                                                                          b.innerText=count;t.innerText=`Rs. ${sum}`;
+                                                                          }
+                                                                          function openCart(){document.getElementById('cartModal').classList.add('active');}
+                                                                          function closeCart(){document.getElementById('cartModal').classList.remove('active');}
+                                                                          function triggerCheckout(){if(cartState.length===0){alert('Add items first!');return;}closeCart();document.getElementById('deliveryNotice').classList.add('active');}
+                                                                          function redirectToWhatsApp(){
+                                                                          document.getElementById('deliveryNotice').classList.remove('active');
+                                                                          let msg="Hello Multani Zaiqay! I want to place an order:\n\n",bill=0;
+                                                                          cartState.forEach(i=>{let sub=i.price*i.qty;bill+=sub;msg+=`▪ [${i.code}] ${i.name} - Qty: ${i.qty} | Subtotal: Rs. ${sub}\n`;});
+                                                                          msg+=`\n*Total Estimated Bill: Rs. ${bill}*\n*(Note: Delivery charges apply)*`;
+                                                                          window.open(`https://wa.me/923216331573?text=${encodeURIComponent(msg)}`,'_blank');
+                                                                          }
+                                                                          window.onload=renderGrid;
+                                                                          </script>
+                                                                          </body>
+                                                                          </html>
+                                                                          
